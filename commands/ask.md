@@ -1,9 +1,5 @@
 ---
-name: ask
-description: >
-  Ask OpenAI Codex general questions or perform freeform tasks.
-  Use for code explanations, technical comparisons, architecture discussions, documentation generation, etc.
-  Results are always returned as structured JSON.
+description: Ask OpenAI Codex general questions or perform freeform tasks. Use for code explanations, technical comparisons, architecture discussions, documentation generation, etc. Results are always returned as structured JSON.
 allowed-tools:
   - mcp__codex__codex_execute_structured
 ---

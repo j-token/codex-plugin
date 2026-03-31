@@ -1,16 +1,12 @@
 ---
-name: ask
-description: >
-  Ask OpenAI Codex general questions or perform freeform tasks.
-  Use for code explanations, technical comparisons, architecture discussions, documentation generation, etc.
-  Results are always returned as structured JSON.
+description: Review and analyze code using OpenAI Codex. Use for code quality checks, bug detection, security audits, performance analysis, etc. Results are always returned as structured JSON.
 allowed-tools:
   - mcp__codex__codex_execute_structured
 ---
 
-# General-Purpose Query
+# Code Review / Analysis
 
-Ask OpenAI Codex general questions or request freeform tasks, returning results as structured JSON.
+Review and analyze code via OpenAI Codex, returning results as structured JSON.
 
 User request: $ARGUMENTS
 
@@ -23,21 +19,26 @@ Call the `mcp__codex__codex_execute_structured` tool.
 Construct the prompt in the following format:
 
 ```
-You are a knowledgeable coding assistant. Your task is to answer questions and perform general tasks.
+You are a code review and analysis agent. Your task is to thoroughly review and analyze code.
 
 Task: [insert user's $ARGUMENTS request here]
 
 IMPORTANT - Structured output rules:
-- Set status to "success" if answered, "partial" if partially answered, "error" if failed.
-- Set task_type to "ask".
-- Write a concise summary of the answer.
-- For result.answer: put your detailed, comprehensive response here. This is the primary output field.
-- For result.files: if the answer references specific files, populate with action "review". Otherwise empty array.
-  - Set content and diff to empty strings for referenced files.
-- Set result.issues to an empty array [].
-- For result.data.key_values: if the answer contains structured data points (comparisons, statistics, lists), populate with relevant key-value pairs. Otherwise empty array.
-  - Example: [{"key": "recommended_framework", "value": "Next.js"}, {"key": "reason", "value": "Server-side rendering support"}]
-- For metadata: set model to "gpt-5.4", thread_id to the current thread ID, tokens_used to 0 if unknown, confidence based on your certainty about the answer.
+- Set status to "success" if review completed, "partial" if partially done, "error" if failed.
+- Set task_type to "review".
+- Write a concise summary of the review findings.
+- For result.issues: populate with every finding. Categorize severity as:
+  - critical: bugs, security vulnerabilities, data loss risks, crashes
+  - warning: performance problems, potential bugs, bad practices, deprecated usage
+  - info: style issues, minor improvements, readability concerns
+  - suggestion: optional enhancements, alternative approaches, best practices
+  - For each issue, include file path and line number when possible (use 0 if unknown).
+  - Include a suggested fix in the "fix" field when you can provide one, empty string otherwise.
+  - Set "category" to classify the issue (e.g. "security", "performance", "style", "bug", "error-handling").
+- For result.files: populate with action "review" for each file examined. Set content and diff to empty strings.
+- Set result.answer to an empty string "".
+- For result.data.key_values: populate with review metrics if applicable (e.g. {"key": "total_files_reviewed", "value": "5"}), otherwise empty array.
+- For metadata: set model to "gpt-5.4", thread_id to the current thread ID, tokens_used to 0 if unknown, confidence based on how thorough the analysis could be.
 ```
 
 ### output_schema
@@ -121,9 +122,10 @@ Always pass the following schema exactly as-is:
 
 ### Other Parameters
 
-- `sandbox_mode`: always `read-only` (queries should never modify files)
+- `sandbox_mode`: always `read-only` (reviews should never modify files)
+- `reasoning_effort`: `high` (for thorough analysis)
 - `web_search_mode`: `live`
-- `working_directory`: pass the current project directory if the question is codebase-related
+- `working_directory`: pass the current project directory if known
 - Keep remaining parameters at defaults unless the user specifies otherwise
 
 ## Presenting Results
@@ -131,7 +133,12 @@ Always pass the following schema exactly as-is:
 After receiving the JSON response:
 
 1. Check `status`
-2. Display `result.answer` as the primary response
-3. If `result.data.key_values` is non-empty, display as a formatted table
-4. If `result.files` is non-empty, list referenced files
-5. Flag `metadata.confidence` if it is "low"
+2. Group `result.issues` by severity and display in order:
+   - **Critical** issues first (with warning emphasis)
+   - **Warning** issues
+   - **Info** issues
+   - **Suggestion** issues
+3. For each issue with a `fix` field, show the suggested fix alongside
+4. Report issue totals: N critical, N warning, N info, N suggestion
+5. Report `summary` and `metadata.confidence`
+6. If `result.data.key_values` contains metrics, display as a table
