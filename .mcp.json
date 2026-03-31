@@ -2,7 +2,7 @@
   "mcpServers": {
     "codex": {
       "command": "bun",
-      "args": ["run", "--cwd", "C:/Users/WinUser/codex-mcp", "src/index.ts"]
+      "args": ["--cwd", "C:/Users/WinUser/codex-mcp", "run", "src/index.ts"]
     }
   }
 }

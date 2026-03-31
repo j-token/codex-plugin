@@ -177,7 +177,7 @@ The plugin connects to codex-mcp via `.mcp.json`. By default, it expects codex-m
   "mcpServers": {
     "codex": {
       "command": "bun",
-      "args": ["run", "--cwd", "/your/path/to/codex-mcp", "src/index.ts"]
+      "args": ["--cwd", "/your/path/to/codex-mcp", "run", "src/index.ts"]
     }
   }
 }
