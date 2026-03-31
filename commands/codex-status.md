@@ -1,14 +1,14 @@
 ---
-description: Codex MCP 서버 연결 상태 및 설정을 확인합니다
+description: Check Codex MCP server connectivity and status
 allowed-tools:
   - mcp__codex__codex_execute_structured
 ---
 
-# Codex 상태 확인
+# Codex Status Check
 
-Codex MCP 서버가 정상적으로 동작하는지 확인합니다.
+Verify that the Codex MCP server is running and accessible.
 
-`mcp__codex__codex_execute_structured` 도구를 호출하세요:
+Call `mcp__codex__codex_execute_structured` with:
 
 - **prompt**: "Return a status check. Confirm you are operational. Set task_type to 'ask', status to 'success', put 'Codex is operational' in result.answer, set confidence to 'high'. Leave files and issues as empty arrays, data.key_values as empty array. For metadata, report the model name you are using."
 
@@ -36,10 +36,10 @@ Codex MCP 서버가 정상적으로 동작하는지 확인합니다.
 }
 ```
 
-## 결과 해석
+## Interpreting Results
 
-- 호출 성공 시: "Codex MCP 서버 정상. 모델: [metadata.model]" 보고
-- 호출 실패 시: 오류 내용을 보고하고, 다음을 확인하도록 안내:
-  1. codex-mcp가 설치되어 있는지 (`C:/Users/WinUser/codex-mcp`)
-  2. `codex login`으로 ChatGPT OAuth 로그인이 완료되었는지
-  3. Bun 런타임이 설치되어 있는지
+- On success: report "Codex MCP server is online. Model: [metadata.model]"
+- On failure: report the error and suggest checking:
+  1. codex-mcp is installed at `C:/Users/WinUser/codex-mcp`
+  2. ChatGPT OAuth login is complete (`codex login`)
+  3. Bun runtime is installed

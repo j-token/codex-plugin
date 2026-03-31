@@ -1,31 +1,31 @@
 ---
 name: review
 description: >
-  OpenAI Codex를 사용하여 코드를 리뷰하고 분석합니다.
-  코드 품질 검사, 버그 탐지, 보안 감사, 성능 분석 등에 사용합니다.
-  결과는 항상 구조화된 JSON으로 반환됩니다.
+  Review and analyze code using OpenAI Codex.
+  Use for code quality checks, bug detection, security audits, performance analysis, etc.
+  Results are always returned as structured JSON.
 allowed-tools:
   - mcp__codex__codex_execute_structured
 ---
 
-# 코드 리뷰/분석 스킬
+# Code Review / Analysis
 
-OpenAI Codex를 통해 코드를 리뷰하고 분석하며, 결과를 구조화된 JSON으로 반환합니다.
+Review and analyze code via OpenAI Codex, returning results as structured JSON.
 
-사용자 요청: $ARGUMENTS
+User request: $ARGUMENTS
 
-## 실행 방법
+## How to Execute
 
-`mcp__codex__codex_execute_structured` 도구를 호출합니다.
+Call the `mcp__codex__codex_execute_structured` tool.
 
-### prompt 구성
+### Prompt Construction
 
-아래 형식으로 프롬프트를 구성하세요:
+Construct the prompt in the following format:
 
 ```
 You are a code review and analysis agent. Your task is to thoroughly review and analyze code.
 
-Task: [사용자의 $ARGUMENTS 요청을 여기에 삽입]
+Task: [insert user's $ARGUMENTS request here]
 
 IMPORTANT - Structured output rules:
 - Set status to "success" if review completed, "partial" if partially done, "error" if failed.
@@ -47,7 +47,7 @@ IMPORTANT - Structured output rules:
 
 ### output_schema
 
-반드시 아래 스키마를 그대로 전달하세요:
+Always pass the following schema exactly as-is:
 
 ```json
 {
@@ -124,25 +124,25 @@ IMPORTANT - Structured output rules:
 }
 ```
 
-### 기타 파라미터
+### Other Parameters
 
-- `sandbox_mode`: 항상 `read-only` (리뷰는 파일을 수정하지 않음)
-- `reasoning_effort`: `high` (정밀한 분석을 위해)
+- `sandbox_mode`: always `read-only` (reviews should never modify files)
+- `reasoning_effort`: `high` (for thorough analysis)
 - `web_search_mode`: `live`
-- `working_directory`: 현재 프로젝트 디렉토리를 전달 (알고 있는 경우)
-- 나머지 파라미터는 사용자가 명시하지 않는 한 기본값 유지
+- `working_directory`: pass the current project directory if known
+- Keep remaining parameters at defaults unless the user specifies otherwise
 
-## 결과 표시
+## Presenting Results
 
-JSON 응답을 받은 후:
+After receiving the JSON response:
 
-1. `status` 확인
-2. `result.issues`를 severity별로 그룹화하여 표시:
-   - **Critical** 이슈를 먼저 표시 (경고 강조)
-   - **Warning** 이슈
-   - **Info** 이슈
-   - **Suggestion** 이슈
-3. 각 이슈에 `fix` 필드가 있으면 수정 제안도 함께 표시
-4. 이슈 수 총계 보고: N critical, N warning, N info, N suggestion
-5. `summary`와 `metadata.confidence` 보고
-6. `result.data.key_values`에 메트릭이 있으면 테이블로 표시
+1. Check `status`
+2. Group `result.issues` by severity and display in order:
+   - **Critical** issues first (with warning emphasis)
+   - **Warning** issues
+   - **Info** issues
+   - **Suggestion** issues
+3. For each issue with a `fix` field, show the suggested fix alongside
+4. Report issue totals: N critical, N warning, N info, N suggestion
+5. Report `summary` and `metadata.confidence`
+6. If `result.data.key_values` contains metrics, display as a table
