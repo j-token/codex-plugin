@@ -122,6 +122,7 @@ IMPORTANT - Structured output rules:
 ### 기타 파라미터
 
 - `sandbox_mode`: 항상 `read-only` (질의는 파일을 수정하지 않음)
+- `web_search_mode`: `live`
 - `working_directory`: 코드베이스 관련 질문이면 현재 프로젝트 디렉토리를 전달
 - 나머지 파라미터는 사용자가 명시하지 않는 한 기본값 유지
 

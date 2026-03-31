@@ -128,6 +128,7 @@ IMPORTANT - Structured output rules:
 
 - `sandbox_mode`: 항상 `read-only` (리뷰는 파일을 수정하지 않음)
 - `reasoning_effort`: `high` (정밀한 분석을 위해)
+- `web_search_mode`: `live`
 - `working_directory`: 현재 프로젝트 디렉토리를 전달 (알고 있는 경우)
 - 나머지 파라미터는 사용자가 명시하지 않는 한 기본값 유지
 

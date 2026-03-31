@@ -124,6 +124,7 @@ IMPORTANT - Structured output rules:
 ### 기타 파라미터
 
 - `sandbox_mode`: 파일을 실제로 쓰는 작업이면 `workspace-write`, 미리보기만 필요하면 `read-only`
+- `web_search_mode`: `live`
 - `working_directory`: 현재 프로젝트 디렉토리를 전달 (알고 있는 경우)
 - 나머지 파라미터는 사용자가 명시하지 않는 한 기본값 유지
 
