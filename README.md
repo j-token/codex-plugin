@@ -12,16 +12,60 @@ A [Claude Code plugin](https://code.claude.com/docs/en/plugins) that integrates 
 
 ## Installation
 
-### Local development
+### Via Marketplace (Recommended)
+
+**Step 1.** Add the marketplace:
+
+```shell
+/plugin marketplace add j-token/codex-plugin
+```
+
+**Step 2.** Install the plugin:
+
+```shell
+/plugin install codex-plugin@codex-marketplace
+```
+
+**Step 3.** Reload plugins:
+
+```shell
+/reload-plugins
+```
+
+That's it! The plugin is now ready to use.
+
+### Via CLI (one-liner)
+
+```bash
+claude plugin install codex-plugin@codex-marketplace
+```
+
+> Make sure the marketplace is added first. See above.
+
+### For local development
 
 ```bash
 claude --plugin-dir /path/to/codex-plugin
 ```
 
-### Install as a plugin
+### Team setup (auto-install for collaborators)
 
-```bash
-claude plugin install codex-plugin@<marketplace>
+Add to your project's `.claude/settings.json` so team members are prompted to install automatically:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "codex-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "j-token/codex-plugin"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "codex-plugin@codex-marketplace": true
+  }
+}
 ```
 
 ## Skills
@@ -108,7 +152,8 @@ Every skill returns the same JSON structure, regardless of task type. Fields not
 ```
 codex-plugin/
 ├── .claude-plugin/
-│   └── plugin.json                 # Plugin manifest
+│   ├── plugin.json                 # Plugin manifest
+│   └── marketplace.json            # Marketplace catalog
 ├── .mcp.json                       # Bundles codex-mcp as MCP server
 ├── skills/
 │   ├── generate/
@@ -148,7 +193,14 @@ Skills support these parameters through the underlying `codex_execute_structured
 | `sandbox_mode` | `read-only` | `read-only`, `workspace-write`, or `danger-full-access` |
 | `reasoning_effort` | `medium` | `minimal`, `low`, `medium`, `high`, `xhigh` |
 | `working_directory` | — | Path to the project directory |
-| `web_search_mode` | `disabled` | `disabled`, `cached`, `live` |
+| `web_search_mode` | `live` | `disabled`, `cached`, `live` |
+
+## Uninstall
+
+```shell
+/plugin uninstall codex-plugin@codex-marketplace
+/plugin marketplace remove codex-marketplace
+```
 
 ## License
 

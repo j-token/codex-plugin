@@ -1,0 +1,24 @@
+{
+  "name": "codex-marketplace",
+  "owner": {
+    "name": "j-token"
+  },
+  "metadata": {
+    "description": "OpenAI Codex integration plugin for Claude Code with structured JSON output"
+  },
+  "plugins": [
+    {
+      "name": "codex-plugin",
+      "source": ".",
+      "description": "OpenAI Codex integration - code generation, review, and general tasks with structured JSON output",
+      "version": "1.0.0",
+      "author": {
+        "name": "j-token"
+      },
+      "repository": "https://github.com/j-token/codex-plugin",
+      "license": "MIT",
+      "keywords": ["codex", "openai", "structured-output", "code-generation", "code-review"],
+      "category": "development"
+    }
+  ]
+}
