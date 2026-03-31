@@ -1,0 +1,143 @@
+{
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "error"],
+      "description": "실행 결과 상태"
+    },
+    "task_type": {
+      "type": "string",
+      "enum": ["generate", "review", "ask"],
+      "description": "수행된 작업 유형"
+    },
+    "summary": {
+      "type": "string",
+      "description": "작업 결과 요약"
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "description": "파일 경로"
+              },
+              "action": {
+                "type": "string",
+                "enum": ["create", "modify", "delete", "review"],
+                "description": "파일에 수행된 작업"
+              },
+              "language": {
+                "type": "string",
+                "description": "프로그래밍 언어"
+              },
+              "content": {
+                "type": "string",
+                "description": "파일 전체 내용 (create 시) 또는 빈 문자열"
+              },
+              "diff": {
+                "type": "string",
+                "description": "unified diff (modify 시) 또는 빈 문자열"
+              }
+            },
+            "required": ["path", "action", "language", "content", "diff"]
+          },
+          "description": "생성, 수정, 또는 검토된 파일 목록"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "severity": {
+                "type": "string",
+                "enum": ["critical", "warning", "info", "suggestion"],
+                "description": "심각도"
+              },
+              "category": {
+                "type": "string",
+                "description": "이슈 분류 (예: security, performance, style)"
+              },
+              "file": {
+                "type": "string",
+                "description": "관련 파일 경로"
+              },
+              "line": {
+                "type": "integer",
+                "description": "관련 라인 번호 (알 수 없으면 0)"
+              },
+              "message": {
+                "type": "string",
+                "description": "이슈 설명"
+              },
+              "fix": {
+                "type": "string",
+                "description": "수정 제안 (없으면 빈 문자열)"
+              }
+            },
+            "required": ["severity", "category", "file", "line", "message", "fix"]
+          },
+          "description": "발견된 이슈 목록"
+        },
+        "answer": {
+          "type": "string",
+          "description": "자유 형식 답변 (ask 작업용)"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "key_values": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string",
+                    "description": "데이터 키"
+                  },
+                  "value": {
+                    "type": "string",
+                    "description": "데이터 값"
+                  }
+                },
+                "required": ["key", "value"]
+              },
+              "description": "구조화된 키-값 데이터"
+            }
+          },
+          "required": ["key_values"]
+        }
+      },
+      "required": ["files", "issues", "answer", "data"]
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string",
+          "description": "사용된 모델명"
+        },
+        "thread_id": {
+          "type": "string",
+          "description": "Codex 스레드 ID"
+        },
+        "tokens_used": {
+          "type": "integer",
+          "description": "사용된 토큰 수"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "결과 신뢰도"
+        }
+      },
+      "required": ["model", "thread_id", "tokens_used", "confidence"]
+    }
+  },
+  "required": ["status", "task_type", "summary", "result", "metadata"]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "codex-plugin",
+  "description": "OpenAI Codex 통합 - 코드 생성, 리뷰, 범용 작업을 구조화된 JSON으로 반환",
+  "version": "1.0.0",
+  "author": {
+    "name": "WinUser"
+  },
+  "keywords": [
+    "codex",
+    "openai",
+    "structured-output",
+    "code-generation",
+    "code-review"
+  ]
+}
