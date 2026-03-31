@@ -1,5 +1,7 @@
 # codex-plugin
 
+[한국어](README.ko.md) | English
+
 A [Claude Code plugin](https://code.claude.com/docs/en/plugins) that integrates OpenAI Codex into Claude Code. Every result is returned as **structured JSON output** with a unified schema, making it easy to parse and process programmatically.
 
 ## Prerequisites

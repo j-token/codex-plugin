@@ -42,7 +42,7 @@ IMPORTANT - Structured output rules:
 - For result.files: populate with action "review" for each file examined. Set content and diff to empty strings.
 - Set result.answer to an empty string "".
 - For result.data.key_values: populate with review metrics if applicable (e.g. {"key": "total_files_reviewed", "value": "5"}), otherwise empty array.
-- For metadata: set model to "gpt-5.4", thread_id to the current thread ID, tokens_used to 0 if unknown, confidence based on how thorough the analysis could be.
+- For metadata: leave model as empty string (server will inject it), thread_id to the current thread ID, tokens_used to 0 if unknown, confidence based on how thorough the analysis could be.
 ```
 
 ### output_schema

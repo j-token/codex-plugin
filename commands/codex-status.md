@@ -10,7 +10,7 @@ Verify that the Codex MCP server is running and accessible.
 
 Call `mcp__codex__codex_execute_structured` with:
 
-- **prompt**: "Return a status check. Confirm you are operational. Set task_type to 'ask', status to 'success', put 'Codex is operational' in result.answer, set confidence to 'high'. Leave files and issues as empty arrays, data.key_values as empty array. For metadata, set model to 'gpt-5.4', thread_id to empty string, tokens_used to 0."
+- **prompt**: "Return a status check. Confirm you are operational. Set task_type to 'ask', status to 'success', put 'Codex is operational' in result.answer, set confidence to 'high'. Leave files and issues as empty arrays, data.key_values as empty array. For metadata, set model to empty string, thread_id to empty string, tokens_used to 0."
 
 - **output_schema**:
 ```json

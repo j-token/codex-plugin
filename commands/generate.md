@@ -35,7 +35,7 @@ IMPORTANT - Structured output rules:
 - Set result.issues to an empty array [].
 - Set result.answer to an empty string "".
 - Set result.data.key_values to an empty array [].
-- For metadata: set model to "gpt-5.4", thread_id to the current thread ID, tokens_used to 0 if unknown, confidence to your certainty level.
+- For metadata: leave model as empty string (server will inject it), thread_id to the current thread ID, tokens_used to 0 if unknown, confidence to your certainty level.
 ```
 
 ### output_schema

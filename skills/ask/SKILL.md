@@ -37,7 +37,7 @@ IMPORTANT - Structured output rules:
 - Set result.issues to an empty array [].
 - For result.data.key_values: if the answer contains structured data points (comparisons, statistics, lists), populate with relevant key-value pairs. Otherwise empty array.
   - Example: [{"key": "recommended_framework", "value": "Next.js"}, {"key": "reason", "value": "Server-side rendering support"}]
-- For metadata: set model to "gpt-5.4", thread_id to the current thread ID, tokens_used to 0 if unknown, confidence based on your certainty about the answer.
+- For metadata: leave model as empty string (server will inject it), thread_id to the current thread ID, tokens_used to 0 if unknown, confidence based on your certainty about the answer.
 ```
 
 ### output_schema

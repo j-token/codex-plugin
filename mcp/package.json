@@ -1,0 +1,21 @@
+{
+  "name": "codex-mcp",
+  "version": "1.0.0",
+  "description": "MCP server powered by OpenAI Codex SDK — uses ChatGPT OAuth login, no API key required",
+  "type": "module",
+  "module": "src/index.ts",
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "dev": "bun --watch run src/index.ts",
+    "check": "bun x tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "@openai/codex-sdk": "^0.116.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.7.0"
+  },
+  "license": "MIT"
+}
