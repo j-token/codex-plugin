@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "codex-plugin",
-      "source": ".",
+      "source": "./",
       "description": "OpenAI Codex integration - code generation, review, and general tasks with structured JSON output",
       "version": "1.0.0",
       "author": {
